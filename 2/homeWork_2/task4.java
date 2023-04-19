@@ -11,15 +11,15 @@ public class task4 {
             String newLine;
             while ((line = br.readLine()) != null) {
                 if (line.contains("%s")) {
-                    newLine = line.replace("5s", name);
-                    try (FileWriter fw = new FileWriter(file);
-                         BufferedWriter bf = new BufferedWriter(fw);
-                         PrintWriter out = new PrintWriter(bf)) {
-                        out.print(newLine);
-                        System.out.println("Успешно добавлены данные в файл");
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    newLine = line.replace("%s", name);
+                    System.out.println(newLine);
+                    FileWriter fw = new FileWriter(file);
+//                    BufferedWriter bf = new BufferedWriter(fw);
+//                    PrintWriter out = new PrintWriter(bf);
+//                    out.print(newLine);
+                    fw.write(newLine);
+                    fw.close();
+
                     }
                 }
 
