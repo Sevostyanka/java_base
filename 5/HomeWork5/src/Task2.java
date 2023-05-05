@@ -8,15 +8,13 @@ import java.util.*;
 Для сортировки использовать TreeMap.*/
 public class Task2 {
     public static void main(String[] args) {
-//        String members = "Иван Иванов, Светлана Петрова, Кристина Белова,\n" +
-//                "Анна Мусина, Анна Крутова, Иван Юрин, Петр Лыков, Павел Чернов, Петр Чернышов,\n" +
-//                "Мария Федорова, Марина Светлова, Мария Савина, Мария Рыкова, Марина Лугова, Анна Владимирова,\n" +
-//                "Иван Мечников, Петр Петин, Иван Ежов";
+        String members = "Иван Иванов, Светлана Петрова, Кристина Белова,\n" +
+                "Анна Мусина, Анна Крутова, Иван Юрин, Петр Лыков, Павел Чернов, Петр Чернышов,\n" +
+                "Мария Федорова, Марина Светлова, Мария Савина, Мария Рыкова, Марина Лугова, Анна Владимирова,\n" +
+                "Иван Мечников, Петр Петин, Иван Ежов";
 
-        String myNames = "Катя, Миша, Марина, Миша, Катя, Лёша, Миша, Катя, Миша, Лёша, Натя";
+        countNames(members);
 
-//        countNames(members);
-        countNames(myNames);
     }
 
     static void countNames(String line) {
@@ -30,34 +28,40 @@ public class Task2 {
         } // оставили только имена
         System.out.println("\n" + names + "\n");
 
-        /* 1й способ: */System.out.println("\nПервый способ:");
-        TreeMap<Integer, String> amountNames = new TreeMap<>(Comparator.reverseOrder());
-        for (String item : names) {
-            if (!amountNames.containsValue(item)) {
+
+        TreeMap<Integer, List<String>> amountNames = new TreeMap<>(Comparator.reverseOrder());
+        for (String item: names) {
             int count = Collections.frequency(names, item);
-                amountNames.put(count, item);
-                System.out.printf("%d - %s; ", count, item);
+            if (amountNames.containsKey(count)) {
+                List<String > list = amountNames.get(count);
+                if (!list.contains(item)) {
+                list.add(item);
+                }
+            } else {
+                List<String> list = new ArrayList<>();
+                list.add(item);
+                amountNames.put(count, list);
             }
         }
         System.out.println("\n" + amountNames);
 
-        /* 2й способ: */
-        System.out.println("\nВторой способ:");
-        TreeMap<Integer, String> countNames = new TreeMap<>(Comparator.reverseOrder());
-        for (String item: names) {
-            if (!countNames.containsValue(item)){
-                int count = 0;
-            for (String j: names) {
-                    if (item.equalsIgnoreCase(j)) {
-                        count++;
-                    }
-                }
-            System.out.printf("%d - %s; ", count, item);
-            countNames.put(count,item);
-            }
-        }
+//        /* 2й способ: */
+//        System.out.println("\nВторой способ:");
+//        TreeMap<Integer, String> countNames = new TreeMap<>(Comparator.reverseOrder());
+//        for (String item: names) {
+//            if (!countNames.containsValue(item)){
+//                int count = 0;
+//            for (String j: names) {
+//                    if (item.equalsIgnoreCase(j)) {
+//                        count++;
+//                    }
+//                }
+//            System.out.printf("%d - %s; ", count, item);
+//            countNames.put(count,item);
+//            }
+//        }
 
-        System.out.println("\n" + countNames);
+//        System.out.println("\n" + countNames);
 
 
     }
